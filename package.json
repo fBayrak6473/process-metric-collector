@@ -1,0 +1,17 @@
+{
+  "name": "process-metric-collector",
+  "version": "0.1.0",
+  "description": "Polls process.memoryUsage and process.cpuUsage at a fixed interval and emits the readings as a structured event.",
+  "type": "module",
+  "main": "src/index.js",
+  "exports": "./src/index.js",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "node --test"
+  },
+  "keywords": [],
+  "license": "MIT",
+  "dependencies": {}
+}
