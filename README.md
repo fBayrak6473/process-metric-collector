@@ -33,3 +33,10 @@ The problem is observing a Node process's own resource usage over time without p
 The first emitted `cpu` reading is a delta measured from `start()` to the first tick, not from process boot. Because `start()` takes its initial sample immediately and the first timer fires one interval later, the first `cpu` value reflects exactly one interval under normal scheduling. If you call `start()` and then do heavy synchronous work before returning to the event loop, that work shows up in the first reading. This is intentional — it is what makes the first reading meaningful — but it surprises people who expect the first tick to be zero or to cover only time since the previous sample.
 
 Timers are `unref()`'d so the collector will not keep a process alive on its own. If you need it to keep the loop alive, hold a reference to something else that does.
+
+## Design notes
+
+The window stores values eagerly rather than keeping running aggregates. Running
+sums drift with floating point over long streams, and recomputing from a small
+buffer is cheap enough that the drift is not worth the speed.
+
